@@ -1,0 +1,4 @@
+services:
+  application:
+    container_name: application
+    platform: linux/amd64

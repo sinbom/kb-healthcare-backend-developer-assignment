@@ -1,0 +1,20 @@
+name: "🐛 Bug"
+description: "버그 수정"
+labels: ["bug"]
+body:
+  - type: textarea
+    attributes:
+      label: 📄 설명
+      description: 버그에 대한 설명을 작성해 주세요.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: ⚒️ 수정할 내용
+      description: 수정할 내용을 작성해주세요.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 🙋🏻 참고 자료
+      description: 참고 자료가 있다면 작성해 주세요.
