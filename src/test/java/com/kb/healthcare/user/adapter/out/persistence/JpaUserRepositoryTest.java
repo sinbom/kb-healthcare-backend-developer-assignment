@@ -31,7 +31,7 @@ class JpaUserRepositoryTest {
     private UserMapper userMapper;
 
     @Test
-    @DisplayName("findById - ID로 유저를 조회한다.")
+    @DisplayName(value = "ID로 유저를 조회한다.")
     void findById() {
         // given
         UserEntity entity = UserEntity.builder()
@@ -58,7 +58,7 @@ class JpaUserRepositoryTest {
     }
 
     @Test
-    @DisplayName("findByNickname - 닉네임으로 유저를 조회한다.")
+    @DisplayName(value = "닉네임으로 유저를 조회한다.")
     void findByNickname() {
         // given
         UserEntity entity = UserEntity.builder()
@@ -86,7 +86,7 @@ class JpaUserRepositoryTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    @DisplayName("findByNickname - Null이거나 공백인 닉네임으로 유저를 조회할 수 없다.")
+    @DisplayName(value = "Null이거나 공백인 닉네임으로 유저를 조회할 수 없다.")
     void findByNicknameWhenNullOrEmptyNickname(String nickname) {
         // when
         Optional<User> notFound = jpaUserRepository.findByNickname(nickname);
@@ -97,7 +97,7 @@ class JpaUserRepositoryTest {
     }
 
     @Test
-    @DisplayName("findByEmail - 이메일로 유저를 조회한다.")
+    @DisplayName(value = "이메일로 유저를 조회한다.")
     void findByEmail() {
         UserEntity entity = UserEntity.builder()
                 .id(3L)
@@ -123,7 +123,7 @@ class JpaUserRepositoryTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    @DisplayName("findByEmail - Null이거나 공백인 이메일로 유저를 조회할 수 없다.")
+    @DisplayName(value = "Null이거나 공백인 이메일로 유저를 조회할 수 없다.")
     void findByEmailWhenNullOrEmptyEmail(String email) {
         // when
         Optional<User> notFound = jpaUserRepository.findByEmail(email);

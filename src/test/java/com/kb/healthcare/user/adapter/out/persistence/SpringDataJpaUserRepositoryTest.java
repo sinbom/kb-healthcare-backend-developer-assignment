@@ -29,7 +29,7 @@ class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
     }
 
     @Test
-    @DisplayName("findById - ID로 유저를 조회한다.")
+    @DisplayName(value = "ID로 유저를 조회한다.")
     void findById() {
         // given
         UserEntity saved = repository.save(
@@ -55,7 +55,7 @@ class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
     }
 
     @Test
-    @DisplayName("findById - 존재하지 않는 ID로 유저를 조회할 수 없다.")
+    @DisplayName(value = "존재하지 않는 ID로 유저를 조회할 수 없다.")
     void findByIdWhenNotFound() {
         // when
         Optional<UserEntity> notFound = repository.findById(MAX_VALUE);
@@ -65,7 +65,7 @@ class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
     }
 
     @Test
-    @DisplayName("findByNickname - 닉네임으로 유저를 조회한다.")
+    @DisplayName(value = "닉네임으로 유저를 조회한다.")
     void findByNicknames() {
         // given
         UserEntity saved = repository.save(
@@ -93,7 +93,7 @@ class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
     }
 
     @Test
-    @DisplayName("findByNickname - 존재하지 않는 닉네임으로 유저를 조회할 수 없다.")
+    @DisplayName(value = "존재하지 않는 닉네임으로 유저를 조회할 수 없다.")
     void findByNicknameWhenNotFound() {
         // when
         Optional<UserEntity> notFound = repository.findByNickname("none");
@@ -103,7 +103,7 @@ class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
     }
 
     @Test
-    @DisplayName(value = "findByEmail - 이메일로 유저를 조회한다.")
+    @DisplayName(value = "이메일로 유저를 조회한다.")
     void findByEmail() {
         // given
         UserEntity saved = repository.save(
@@ -129,7 +129,7 @@ class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
     }
 
     @Test
-    @DisplayName(value = "findByEmail - 존재하지 않는 이메일로 유저를 조회할 수 없다.")
+    @DisplayName(value = "존재하지 않는 이메일로 유저를 조회할 수 없다.")
     void findByEmailWhenNotFound() {
         Optional<UserEntity> notFound = repository.findByEmail("none@example.com");
 

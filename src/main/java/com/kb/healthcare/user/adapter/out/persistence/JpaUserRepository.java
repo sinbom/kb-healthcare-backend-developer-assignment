@@ -43,4 +43,16 @@ class JpaUserRepository implements UserRepository {
                 .map(userMapper::mapToDomain);
     }
 
+    @Override
+    public void create(User user) {
+        UserEntity userEntity = UserEntity.builder()
+                .name(user.name())
+                .nickname(user.nickname())
+                .email(user.email())
+                .password(user.password())
+                .build();
+
+        userRepository.save(userEntity);
+    }
+
 }
