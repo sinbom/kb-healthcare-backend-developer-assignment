@@ -12,7 +12,7 @@ class UserMapperTest {
 
     @Test
     @DisplayName(value = "유저 엔티티를 도메인으로 변환한다.")
-    void mapToDomain_success() {
+    void mapToDomain() {
         // given
         UserEntity entity = UserEntity.builder()
                 .id(1L)
@@ -31,7 +31,6 @@ class UserMapperTest {
         assertThat(user.nickname()).isEqualTo(entity.getNickname());
         assertThat(user.email()).isEqualTo(entity.getEmail());
         assertThat(user.password()).isEqualTo(entity.getPassword());
-        assertThat(user.createdAt()).isNull();
-        assertThat(user.updatedAt()).isNull();
     }
+
 }

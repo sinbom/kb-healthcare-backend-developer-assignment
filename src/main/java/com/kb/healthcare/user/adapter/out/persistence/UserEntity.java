@@ -31,12 +31,14 @@ class UserEntity extends BaseEntity {
 
     @Column(
             length = 64,
+            unique = true,
             nullable = false
     )
     private String nickname;
 
     @Column(
             length = 320,
+            unique = true,
             nullable = false
     )
     private String email;
