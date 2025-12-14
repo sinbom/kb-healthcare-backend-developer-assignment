@@ -4,7 +4,7 @@ import com.kb.healthcare.user.application.port.in.command.SignUpUserCommand;
 import com.kb.healthcare.user.application.port.out.CreateUserPort;
 import com.kb.healthcare.user.application.port.out.FindUserPort;
 import com.kb.healthcare.user.domain.User;
-import com.kb.healthcare.user.domain.exception.UserAlreadyExistsException;
+import com.kb.healthcare.user.exception.UserAlreadyExistsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -59,11 +59,11 @@ class SignUpUserServiceTest {
         signUpUserService.signUp(command);
 
         // then
-        verify(findUserPort, times(1)).findByEmail(command.email());
-        verify(findUserPort, times(1)).findByNickname(command.nickname());
+        verify(findUserPort).findByEmail(command.email());
+        verify(findUserPort).findByNickname(command.nickname());
         ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
-        verify(createUserPort, times(1)).create(captor.capture());
-        verify(passwordEncoder, times(1)).encode(command.password());
+        verify(createUserPort).create(captor.capture());
+        verify(passwordEncoder).encode(command.password());
 
         User saved = captor.getValue();
         assertThat(saved).isNotNull();

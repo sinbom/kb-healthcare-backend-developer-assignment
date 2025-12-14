@@ -1,27 +1,27 @@
-package com.kb.healthcare.user.domain.exception;
+package com.kb.healthcare.user.exception;
 
 import com.kb.healthcare.exception.BusinessException;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-public class UserAlreadyExistsException extends BusinessException {
+public class UserPasswordNotMatchedException extends BusinessException {
 
     private static final int DEFAULT_STATUS = BAD_REQUEST.value();
 
-    private static final String DEFAULT_MESSAGE = "이미 존재하는 유저에요.";
+    private static final String DEFAULT_MESSAGE = "유저 정보가 일치하지 않아요.";
 
-    public UserAlreadyExistsException() {
+    public UserPasswordNotMatchedException() {
         this(DEFAULT_MESSAGE);
     }
 
-    public UserAlreadyExistsException(String message) {
+    public UserPasswordNotMatchedException(String message) {
         super(
                 DEFAULT_STATUS,
                 message
         );
     }
 
-    public UserAlreadyExistsException(
+    public UserPasswordNotMatchedException(
             String message,
             Throwable cause
     ) {

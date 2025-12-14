@@ -5,7 +5,7 @@ import com.kb.healthcare.user.application.port.in.SignUpUserUseCase;
 import com.kb.healthcare.user.application.port.out.CreateUserPort;
 import com.kb.healthcare.user.application.port.out.FindUserPort;
 import com.kb.healthcare.user.domain.User;
-import com.kb.healthcare.user.domain.exception.UserAlreadyExistsException;
+import com.kb.healthcare.user.exception.UserAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
