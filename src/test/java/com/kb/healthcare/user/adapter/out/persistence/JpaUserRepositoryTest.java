@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -131,6 +132,32 @@ class JpaUserRepositoryTest {
         // then
         assertThat(notFound).isEmpty();
         verifyNoInteractions(springDataJpaUserRepository);
+    }
+
+    @Test
+    @DisplayName(value = "유저를 저장한다.")
+    void create() {
+        // given
+        User user = User.builder()
+                .name("홍길동")
+                .nickname("gildong")
+                .email("gildong@example.com")
+                .password("secret")
+                .build();
+
+        // when
+        jpaUserRepository.create(user);
+
+        // then
+        ArgumentCaptor<UserEntity> captor = ArgumentCaptor.forClass(UserEntity.class);
+        verify(springDataJpaUserRepository).save(captor.capture());
+
+        UserEntity saved = captor.getValue();
+        assertThat(saved.getId()).isNull();
+        assertThat(saved.getName()).isEqualTo(user.name());
+        assertThat(saved.getNickname()).isEqualTo(user.nickname());
+        assertThat(saved.getEmail()).isEqualTo(user.email());
+        assertThat(saved.getPassword()).isEqualTo(user.password());
     }
 
 }
