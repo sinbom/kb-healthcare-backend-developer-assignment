@@ -21,14 +21,12 @@ class SpringDataJpaActivityRepositoryTest extends AbstractDataJpaTestContext {
             int steps,
             BigDecimal calories,
             BigDecimal distance,
-            UUID deviceId,
-            long userId
+            UUID userId
     ) {
         return ActivityEntity.builder()
                 .steps(steps)
                 .calories(calories)
                 .distance(distance)
-                .deviceId(deviceId)
                 .userId(userId)
                 .build();
     }
@@ -42,8 +40,7 @@ class SpringDataJpaActivityRepositoryTest extends AbstractDataJpaTestContext {
                         9876,
                         new BigDecimal("123.456789012345678901234567890"),
                         new BigDecimal("45.678901234567890123456789012"),
-                        randomUUID(),
-                        1001L
+                        randomUUID()
                 )
         );
 
@@ -56,7 +53,6 @@ class SpringDataJpaActivityRepositoryTest extends AbstractDataJpaTestContext {
         assertThat(found.get().getSteps()).isEqualTo(saved.getSteps());
         assertThat(found.get().getCalories()).isEqualTo(saved.getCalories());
         assertThat(found.get().getDistance()).isEqualTo(saved.getDistance());
-        assertThat(found.get().getDeviceId()).isEqualTo(saved.getDeviceId());
         assertThat(found.get().getUserId()).isEqualTo(saved.getUserId());
         assertThat(found.get().getCreatedAt()).isNotNull();
     }

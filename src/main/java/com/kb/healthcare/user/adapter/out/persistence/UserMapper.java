@@ -8,7 +8,7 @@ class UserMapper {
 
     User mapToDomain(UserEntity entity) {
         return User.builder()
-                .id(entity.getId())
+                .id(entity.getId().toString())
                 .name(entity.getName())
                 .nickname(entity.getNickname())
                 .email(entity.getEmail())

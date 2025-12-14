@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
+import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -53,7 +54,7 @@ class LoginUserServiceTest {
     void login() {
         // given
         User saved = User.builder()
-                .id(1L)
+                .id(randomUUID().toString())
                 .email(command.email())
                 .password("{bcrypt}encoded")
                 .build();
@@ -62,7 +63,7 @@ class LoginUserServiceTest {
 
         when(findUserPort.findByEmail(command.email())).thenReturn(of(saved));
         when(passwordEncoder.matches(command.password(), saved.password())).thenReturn(true);
-        when(signJwtPort.sign("1")).thenReturn(jwt);
+        when(signJwtPort.sign(saved.id())).thenReturn(jwt);
 
         // when
         UserToken token = loginUserService.login(command);
@@ -72,7 +73,7 @@ class LoginUserServiceTest {
         assertThat(token.accessToken()).isEqualTo(jwt);
         verify(findUserPort).findByEmail(command.email());
         verify(passwordEncoder).matches(command.password(), saved.password());
-        verify(signJwtPort).sign("1");
+        verify(signJwtPort).sign(saved.id());
     }
 
     @Test
@@ -94,7 +95,7 @@ class LoginUserServiceTest {
     void loginWhenPasswordNotMatched() {
         // given
         User saved = User.builder()
-                .id(1L)
+                .id(randomUUID().toString())
                 .email(command.email())
                 .password("{bcrypt}encoded")
                 .build();
