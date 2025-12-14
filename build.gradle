@@ -46,8 +46,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation "com.querydsl:querydsl-jpa:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+    implementation "io.jsonwebtoken:jjwt-api:$jwtVersion"
 
     runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly "io.jsonwebtoken:jjwt-impl:$jwtVersion"
+    runtimeOnly "io.jsonwebtoken:jjwt-jackson:$jwtVersion"
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
