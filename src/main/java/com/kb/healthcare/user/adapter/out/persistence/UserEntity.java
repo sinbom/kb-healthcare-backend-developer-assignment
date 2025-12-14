@@ -2,13 +2,20 @@ package com.kb.healthcare.user.adapter.out.persistence;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import static jakarta.persistence.GenerationType.UUID;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(name = "users")
+@EntityListeners(value = AuditingEntityListener.class)
 @EqualsAndHashCode(
         of = "id",
         callSuper = false
@@ -17,11 +24,11 @@ import static lombok.AccessLevel.PROTECTED;
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PRIVATE)
-class UserEntity extends BaseEntity {
+class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = UUID)
+    private UUID id;
 
     @Column(
             length = 64,
@@ -48,5 +55,16 @@ class UserEntity extends BaseEntity {
             nullable = false
     )
     private String password;
+
+    @CreatedDate
+    @Column(
+            updatable = false,
+            nullable = false
+    )
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
 
 }

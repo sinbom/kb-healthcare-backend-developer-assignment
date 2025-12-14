@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static java.util.Optional.of;
+import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -36,7 +37,7 @@ class JpaUserRepositoryTest {
     void findById() {
         // given
         UserEntity entity = UserEntity.builder()
-                .id(10L)
+                .id(randomUUID())
                 .name("김철수")
                 .nickname("chul")
                 .email("chul@example.com")
@@ -46,11 +47,11 @@ class JpaUserRepositoryTest {
         when(springDataJpaUserRepository.findById(entity.getId())).thenReturn(of(entity));
 
         // when
-        Optional<User> result = jpaUserRepository.findById(entity.getId());
+        Optional<User> result = jpaUserRepository.findById(entity.getId().toString());
 
         // then
         assertThat(result).isPresent();
-        assertThat(result.get().id()).isEqualTo(entity.getId());
+        assertThat(result.get().id()).isEqualTo(entity.getId().toString());
         assertThat(result.get().name()).isEqualTo(entity.getName());
         assertThat(result.get().nickname()).isEqualTo(entity.getNickname());
         assertThat(result.get().email()).isEqualTo(entity.getEmail());
@@ -63,7 +64,7 @@ class JpaUserRepositoryTest {
     void findByNickname() {
         // given
         UserEntity entity = UserEntity.builder()
-                .id(2L)
+                .id(randomUUID())
                 .name("이영희")
                 .nickname("young")
                 .email("young@example.com")
@@ -77,7 +78,7 @@ class JpaUserRepositoryTest {
 
         // then
         assertThat(result).isPresent();
-        assertThat(result.get().id()).isEqualTo(entity.getId());
+        assertThat(result.get().id()).isEqualTo(entity.getId().toString());
         assertThat(result.get().name()).isEqualTo(entity.getName());
         assertThat(result.get().nickname()).isEqualTo(entity.getNickname());
         assertThat(result.get().email()).isEqualTo(entity.getEmail());
@@ -101,7 +102,7 @@ class JpaUserRepositoryTest {
     @DisplayName(value = "이메일로 유저를 조회한다.")
     void findByEmail() {
         UserEntity entity = UserEntity.builder()
-                .id(3L)
+                .id(randomUUID())
                 .name("박하늘")
                 .nickname("sky")
                 .email("sky@example.com")
@@ -114,7 +115,7 @@ class JpaUserRepositoryTest {
 
         // then
         assertThat(result).isPresent();
-        assertThat(result.get().id()).isEqualTo(entity.getId());
+        assertThat(result.get().id()).isEqualTo(entity.getId().toString());
         assertThat(result.get().name()).isEqualTo(entity.getName());
         assertThat(result.get().nickname()).isEqualTo(entity.getNickname());
         assertThat(result.get().email()).isEqualTo(entity.getEmail());

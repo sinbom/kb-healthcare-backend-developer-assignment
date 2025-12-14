@@ -18,8 +18,7 @@ class JpaActivityRepository implements ActivityRepository {
                 .steps(activity.steps())
                 .calories(activity.calories())
                 .distance(activity.distance())
-                .deviceId(fromString(activity.deviceId()))
-                .userId(activity.userId())
+                .userId(fromString(activity.userId()))
                 .build();
 
         activityRepository.save(activityEntity);

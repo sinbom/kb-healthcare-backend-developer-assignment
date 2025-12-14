@@ -48,10 +48,7 @@ public class ActivityEntity {
     private BigDecimal distance;
 
     @Column(nullable = false)
-    private UUID deviceId;
-
-    @Column(nullable = false)
-    private Long userId;
+    private UUID userId;
 
     @CreatedDate
     @Column(

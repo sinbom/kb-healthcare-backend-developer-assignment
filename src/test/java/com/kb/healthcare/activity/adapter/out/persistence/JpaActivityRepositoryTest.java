@@ -32,8 +32,7 @@ class JpaActivityRepositoryTest {
                 .steps(12345)
                 .calories(new BigDecimal("12.345678901234567890123456789"))
                 .distance(new BigDecimal("1.234567890123456789012345678"))
-                .deviceId(UUID.randomUUID().toString())
-                .userId(1L)
+                .userId(UUID.randomUUID().toString())
                 .build();
 
         // when
@@ -48,8 +47,7 @@ class JpaActivityRepositoryTest {
         assertThat(saved.getSteps()).isEqualTo(activity.steps());
         assertThat(saved.getCalories()).isEqualTo(activity.calories());
         assertThat(saved.getDistance()).isEqualTo(activity.distance());
-        assertThat(saved.getDeviceId().toString()).isEqualTo(activity.deviceId());
-        assertThat(saved.getUserId()).isEqualTo(activity.userId());
+        assertThat(saved.getUserId().toString()).isEqualTo(activity.userId());
     }
 
 }

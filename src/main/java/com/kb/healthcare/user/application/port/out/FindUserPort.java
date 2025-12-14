@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface FindUserPort {
 
-    Optional<User> findById(long id);
+    Optional<User> findById(String id);
 
     Optional<User> findByNickname(String email);
 

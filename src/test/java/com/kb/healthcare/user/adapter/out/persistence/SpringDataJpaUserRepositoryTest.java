@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
-import static java.lang.Long.MAX_VALUE;
+import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
@@ -51,14 +51,14 @@ class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
         assertThat(found.get().getEmail()).isEqualTo(saved.getEmail());
         assertThat(found.get().getPassword()).isEqualTo(saved.getPassword());
         assertThat(found.get().getCreatedAt()).isNotNull();
-        assertThat(found.get().getPassword()).isNotNull();
+        assertThat(found.get().getUpdatedAt()).isNotNull();
     }
 
     @Test
     @DisplayName(value = "존재하지 않는 ID로 유저를 조회할 수 없다.")
     void findByIdWhenNotFound() {
         // when
-        Optional<UserEntity> notFound = repository.findById(MAX_VALUE);
+        Optional<UserEntity> notFound = repository.findById(randomUUID());
 
         // then
         assertThat(notFound).isEmpty();
@@ -88,7 +88,7 @@ class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
         assertThat(found.get().getEmail()).isEqualTo(saved.getEmail());
         assertThat(found.get().getPassword()).isEqualTo(saved.getPassword());
         assertThat(found.get().getCreatedAt()).isNotNull();
-        assertThat(found.get().getPassword()).isNotNull();
+        assertThat(found.get().getUpdatedAt()).isNotNull();
         assertThat(notFound).isEmpty();
     }
 
@@ -125,7 +125,7 @@ class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
         assertThat(found.get().getEmail()).isEqualTo(saved.getEmail());
         assertThat(found.get().getPassword()).isEqualTo(saved.getPassword());
         assertThat(found.get().getCreatedAt()).isNotNull();
-        assertThat(found.get().getPassword()).isNotNull();
+        assertThat(found.get().getUpdatedAt()).isNotNull();
     }
 
     @Test

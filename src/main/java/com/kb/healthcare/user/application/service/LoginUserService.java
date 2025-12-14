@@ -1,9 +1,9 @@
 package com.kb.healthcare.user.application.service;
 
-import com.kb.healthcare.user.application.port.out.SignJwtPort;
 import com.kb.healthcare.user.application.port.in.LoginUserUseCase;
 import com.kb.healthcare.user.application.port.in.command.LoginUserCommand;
 import com.kb.healthcare.user.application.port.out.FindUserPort;
+import com.kb.healthcare.user.application.port.out.SignJwtPort;
 import com.kb.healthcare.user.domain.User;
 import com.kb.healthcare.user.domain.UserToken;
 import com.kb.healthcare.user.exception.UserNotExistsException;
@@ -37,7 +37,7 @@ public class LoginUserService implements LoginUserUseCase {
         }
 
         return UserToken.builder()
-                .accessToken(signJwtPort.sign(user.id().toString()))
+                .accessToken(signJwtPort.sign(user.id()))
                 .build();
     }
 

@@ -14,8 +14,6 @@ public record Activity(
 
         BigDecimal distance,
 
-        String deviceId,
-
-        Long userId
+        String userId
 ) {
 }

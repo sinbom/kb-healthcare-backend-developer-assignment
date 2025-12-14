@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 import static java.util.Optional.empty;
+import static java.util.UUID.fromString;
 import static org.springframework.util.StringUtils.hasText;
 
 @Repository
@@ -18,8 +19,8 @@ class JpaUserRepository implements UserRepository {
     private final UserMapper userMapper;
 
     @Override
-    public Optional<User> findById(long id) {
-        return userRepository.findById(id)
+    public Optional<User> findById(String id) {
+        return userRepository.findById(fromString(id))
                 .map(userMapper::mapToDomain);
     }
 

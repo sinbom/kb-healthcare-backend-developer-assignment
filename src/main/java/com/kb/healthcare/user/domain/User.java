@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Builder
 public record User(
-        Long id,
+        String id,
 
         String name,
 
