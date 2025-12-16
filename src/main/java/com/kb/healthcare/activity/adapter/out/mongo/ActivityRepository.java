@@ -1,4 +1,4 @@
-package com.kb.healthcare.activity.adapter.out.persistence;
+package com.kb.healthcare.activity.adapter.out.mongo;
 
 import com.kb.healthcare.activity.application.port.out.CreateActivityPort;
 
