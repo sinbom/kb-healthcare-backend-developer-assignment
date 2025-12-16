@@ -140,13 +140,7 @@ class JwtAuthenticationFilterTest {
         verify(verifyJwtPort).extractSubject("empty.subject");
     }
 
-    static class AssertingAuthFilterChain implements FilterChain {
-
-        private final boolean expectAuthenticated;
-
-        AssertingAuthFilterChain(boolean expectAuthenticated) {
-            this.expectAuthenticated = expectAuthenticated;
-        }
+    private record AssertingAuthFilterChain(boolean expectAuthenticated) implements FilterChain {
 
         @Override
         public void doFilter(

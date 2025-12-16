@@ -2,7 +2,6 @@ package com.kb.healthcare.user.adapter.in.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kb.healthcare.configuration.AbstractWebMvcTestContext;
-import com.kb.healthcare.user.adapter.in.web.request.LoginUserRequest;
 import com.kb.healthcare.user.application.port.in.LoginUserUseCase;
 import com.kb.healthcare.user.application.port.in.command.LoginUserCommand;
 import com.kb.healthcare.user.domain.UserToken;

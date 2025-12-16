@@ -52,6 +52,7 @@ class ActivityMapper {
 
     ActivityEntity mapToEntity(Activity activity) {
         return ActivityEntity.builder()
+                .id(activity.id())
                 .type(activity.type())
                 .userId(UUID.fromString(activity.userId()))
                 .fromAt(toInstant(activity.period().from()))

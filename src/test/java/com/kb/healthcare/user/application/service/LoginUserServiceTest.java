@@ -7,7 +7,6 @@ import com.kb.healthcare.user.domain.User;
 import com.kb.healthcare.user.domain.UserToken;
 import com.kb.healthcare.user.exception.UserNotExistsException;
 import com.kb.healthcare.user.exception.UserPasswordNotMatchedException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,20 +38,12 @@ class LoginUserServiceTest {
     @Mock
     private SignJwtPort signJwtPort;
 
-    private LoginUserCommand command;
-
-    @BeforeEach
-    void setUp() {
-        command = LoginUserCommand.builder()
-                .email("gildong@example.com")
-                .password("plain-pass")
-                .build();
-    }
-
     @Test
     @DisplayName(value = "로그인한다.")
     void login() {
         // given
+        LoginUserCommand command = create();
+
         User saved = User.builder()
                 .id(randomUUID().toString())
                 .email(command.email())
@@ -80,6 +71,8 @@ class LoginUserServiceTest {
     @DisplayName(value = "존재하지 않는 이메일로 로그인할 수 없다.")
     void loginWhenUserNotFound() {
         // given
+        LoginUserCommand command = create();
+
         when(findUserPort.findByEmail(command.email())).thenReturn(empty());
 
         // when & then
@@ -94,6 +87,8 @@ class LoginUserServiceTest {
     @DisplayName(value = "잘못된 비밀번호로 로그인할 수 없다.")
     void loginWhenPasswordNotMatched() {
         // given
+        LoginUserCommand command = create();
+
         User saved = User.builder()
                 .id(randomUUID().toString())
                 .email(command.email())
@@ -108,6 +103,13 @@ class LoginUserServiceTest {
                 .isInstanceOf(UserPasswordNotMatchedException.class);
 
         verify(signJwtPort, never()).sign(anyString());
+    }
+
+    private LoginUserCommand create() {
+        return LoginUserCommand.builder()
+                .email("gildong@example.com")
+                .password("plain-pass")
+                .build();
     }
 
 }

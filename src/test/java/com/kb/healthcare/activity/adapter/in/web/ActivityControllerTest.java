@@ -43,7 +43,42 @@ class ActivityControllerTest extends AbstractWebMvcTestContext {
     @MockitoBean
     private SaveActivityService saveActivityService;
 
-    private SaveActivitiesRequest createValidRequest() {
+    @Test
+    @WithMockUser
+    @DisplayName(value = "활동을 저장한다.")
+    void save() throws Exception {
+        // given
+        SaveActivitiesRequest request = create();
+
+        // when & then
+        mockMvc.perform(
+                        post("/api/v1/activities")
+                                .contentType(APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+        verify(saveActivityService).save(anyList());
+    }
+
+    @Test
+    @DisplayName(value = "로그인 유저만 활동을 저장할 수 있다.")
+    void saveWhenUnAuthorized() throws Exception {
+        // given
+        SaveActivitiesRequest request = create();
+
+        // when & then
+        mockMvc.perform(
+                        post("/api/v1/activities")
+                                .contentType(APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isUnauthorized());
+    }
+
+    private SaveActivitiesRequest create() {
         return new SaveActivitiesRequest(
                 randomUUID()
                         .toString(),
@@ -79,41 +114,6 @@ class ActivityControllerTest extends AbstractWebMvcTestContext {
                 now(),
                 STEPS
         );
-    }
-
-    @Test
-    @WithMockUser
-    @DisplayName(value = "활동을 저장한다.")
-    void save() throws Exception {
-        // given
-        SaveActivitiesRequest request = createValidRequest();
-
-        // when & then
-        mockMvc.perform(
-                        post("/api/v1/activities")
-                                .contentType(APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request))
-                )
-                .andDo(print())
-                .andExpect(status().isNoContent());
-
-        verify(saveActivityService).save(anyList());
-    }
-
-    @Test
-    @DisplayName(value = "로그인 유저만 활동을 저장할 수 있다.")
-    void saveWhenUnAuthorized() throws Exception {
-        // given
-        SaveActivitiesRequest request = createValidRequest();
-
-        // when & then
-        mockMvc.perform(
-                        post("/api/v1/activities")
-                                .contentType(APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request))
-                )
-                .andDo(print())
-                .andExpect(status().isUnauthorized());
     }
 
 }

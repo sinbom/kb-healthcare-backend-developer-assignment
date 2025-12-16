@@ -22,6 +22,7 @@ public class SaveActivityService implements SaveActivityUseCase {
         List<Activity> activities = commands.stream()
                 .map(command ->
                         Activity.builder()
+                                .type(command.type())
                                 .userId(command.userId())
                                 .period(command.period())
                                 .distance(command.distance())

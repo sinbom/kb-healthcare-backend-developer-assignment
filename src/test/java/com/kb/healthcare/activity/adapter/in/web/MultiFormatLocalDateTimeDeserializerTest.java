@@ -21,12 +21,6 @@ class MultiFormatLocalDateTimeDeserializerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private record Dto(
-            @JsonDeserialize(using = MultiFormatLocalDateTimeDeserializer.class)
-            LocalDateTime dateTime
-    ) {
-    }
-
     @ParameterizedTest
     @MethodSource(value = "deserialize")
     @DisplayName(value = "날짜 포맷에 맞춰 역직렬화한다.")
@@ -71,6 +65,12 @@ class MultiFormatLocalDateTimeDeserializerTest {
                         )
                 )
         );
+    }
+
+    private record Dto(
+            @JsonDeserialize(using = MultiFormatLocalDateTimeDeserializer.class)
+            LocalDateTime dateTime
+    ) {
     }
 
 }
