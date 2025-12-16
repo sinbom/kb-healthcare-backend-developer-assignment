@@ -20,27 +20,6 @@ class SpringDataMongoActivityRepositoryTest extends AbstractDataMongoTestContext
     @Autowired
     private SpringDataMongoActivityRepository repository;
 
-    private ActivityEntity create(
-            BigDecimal steps,
-            BigDecimal calories,
-            BigDecimal distance
-    ) {
-        return ActivityEntity.builder()
-                .type(STEPS)
-                .steps(steps)
-                .calories(calories)
-                .distance(distance)
-                .userId(randomUUID())
-                .fromAt(now())
-                .toAt(now().plus(1, DAYS))
-                .productName("IPhone")
-                .productVendor("Apple inc.")
-                .sourceType("")
-                .sourceMode("10")
-                .sourceName("Health Kit")
-                .build();
-    }
-
     @Test
     @DisplayName(value = "ID로 활동을 조회한다.")
     void findById() {
@@ -72,6 +51,27 @@ class SpringDataMongoActivityRepositoryTest extends AbstractDataMongoTestContext
         assertThat(found.get().getSourceMode()).isEqualTo(saved.getSourceMode());
         assertThat(found.get().getSourceName()).isEqualTo(saved.getSourceName());
         assertThat(found.get().getCreatedAt()).isNotNull();
+    }
+
+    private ActivityEntity create(
+            BigDecimal steps,
+            BigDecimal calories,
+            BigDecimal distance
+    ) {
+        return ActivityEntity.builder()
+                .type(STEPS)
+                .steps(steps)
+                .calories(calories)
+                .distance(distance)
+                .userId(randomUUID())
+                .fromAt(now())
+                .toAt(now().plus(1, DAYS))
+                .productName("IPhone")
+                .productVendor("Apple inc.")
+                .sourceType("")
+                .sourceMode("10")
+                .sourceName("Health Kit")
+                .build();
     }
 
 }

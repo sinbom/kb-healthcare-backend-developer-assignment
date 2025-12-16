@@ -5,7 +5,6 @@ import com.kb.healthcare.user.application.port.out.CreateUserPort;
 import com.kb.healthcare.user.application.port.out.FindUserPort;
 import com.kb.healthcare.user.domain.User;
 import com.kb.healthcare.user.exception.UserAlreadyExistsException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,22 +36,12 @@ class SignUpUserServiceTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
-    private SignUpUserCommand command;
-
-    @BeforeEach
-    void setUp() {
-        command = SignUpUserCommand.builder()
-                .name("홍길동")
-                .nickname("길동이")
-                .email("gildong@example.com")
-                .password("plain-pass")
-                .build();
-    }
-
     @Test
     @DisplayName(value = "회원가입한다.")
     void signUp() {
         // given
+        SignUpUserCommand command = create();
+
         when(passwordEncoder.encode(command.password())).thenReturn("{bcrypt}encoded");
 
         // when
@@ -77,6 +66,8 @@ class SignUpUserServiceTest {
     @DisplayName(value = "이미 사용중인 이메일로 회원가입할 수 없다.")
     void signUpWhenDuplicatedEmail() {
         // given
+        SignUpUserCommand command = create();
+
         when(findUserPort.findByEmail(command.email())).thenReturn(of(User.builder().build()));
 
         // when & then
@@ -92,6 +83,8 @@ class SignUpUserServiceTest {
     @DisplayName(value = "이미 사용중인 닉네임으로 회원가입할 수 없다.")
     void signUpWhenDuplicatedNickname() {
         // given
+        SignUpUserCommand command = create();
+
         when(findUserPort.findByEmail(command.email())).thenReturn(empty());
         when(findUserPort.findByNickname(command.nickname())).thenReturn(of(User.builder().build()));
 
@@ -102,6 +95,15 @@ class SignUpUserServiceTest {
 
         verify(createUserPort, never()).create(any());
         verify(passwordEncoder, never()).encode(any());
+    }
+
+    private SignUpUserCommand create() {
+        return SignUpUserCommand.builder()
+                .name("홍길동")
+                .nickname("길동이")
+                .email("gildong@example.com")
+                .password("plain-pass")
+                .build();
     }
 
 }

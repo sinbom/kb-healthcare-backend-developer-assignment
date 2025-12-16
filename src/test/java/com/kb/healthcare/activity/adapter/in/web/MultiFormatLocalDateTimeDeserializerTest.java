@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.stream.Stream;
 
 import static java.time.ZoneId.systemDefault;
@@ -20,12 +20,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 class MultiFormatLocalDateTimeDeserializerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-
-    private record Dto(
-            @JsonDeserialize(using = MultiFormatLocalDateTimeDeserializer.class)
-            LocalDateTime dateTime
-    ) {
-    }
 
     @ParameterizedTest
     @MethodSource(value = "deserialize")
@@ -57,7 +51,7 @@ class MultiFormatLocalDateTimeDeserializerTest {
                 arguments(
                         "2024-11-14T23:10:00+0000",
                         LocalDateTime.ofInstant(
-                                OffsetDateTime.parse("2024-11-14T23:10:00+0000", ofPattern("yyyy-MM-dd'T'HH:mm:ssZ"))
+                                ZonedDateTime.parse("2024-11-14T23:10:00+0000", ofPattern("yyyy-MM-dd'T'HH:mm:ssZ"))
                                         .toInstant(),
                                 systemDefault()
                         )
@@ -65,12 +59,18 @@ class MultiFormatLocalDateTimeDeserializerTest {
                 arguments(
                         "2024-12-16 14:40:00 +0000",
                         LocalDateTime.ofInstant(
-                                OffsetDateTime.parse("2024-12-16 14:40:00 +0000", ofPattern("yyyy-MM-dd HH:mm:ss Z"))
+                                ZonedDateTime.parse("2024-12-16 14:40:00 +0000", ofPattern("yyyy-MM-dd HH:mm:ss Z"))
                                         .toInstant(),
                                 systemDefault()
                         )
                 )
         );
+    }
+
+    private record Dto(
+            @JsonDeserialize(using = MultiFormatLocalDateTimeDeserializer.class)
+            LocalDateTime dateTime
+    ) {
     }
 
 }

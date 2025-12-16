@@ -1,6 +1,5 @@
 package com.kb.healthcare.user.adapter.in.web;
 
-import com.kb.healthcare.user.adapter.in.web.request.SignUpUserRequest;
 import com.kb.healthcare.user.application.port.in.command.SignUpUserCommand;
 import com.kb.healthcare.user.application.service.SignUpUserService;
 import jakarta.validation.Valid;

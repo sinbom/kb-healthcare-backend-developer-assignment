@@ -2,7 +2,6 @@ package com.kb.healthcare.user.adapter.in.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kb.healthcare.configuration.AbstractWebMvcTestContext;
-import com.kb.healthcare.user.adapter.in.web.request.SignUpUserRequest;
 import com.kb.healthcare.user.application.port.in.command.SignUpUserCommand;
 import com.kb.healthcare.user.application.service.SignUpUserService;
 import org.junit.jupiter.api.DisplayName;

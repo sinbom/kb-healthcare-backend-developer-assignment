@@ -5,12 +5,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 import static com.kb.healthcare.activity.domain.ActivityType.STEPS;
 import static com.kb.healthcare.activity.domain.CalorieUnit.KCAL;
 import static com.kb.healthcare.activity.domain.DistanceUnit.KM;
-import static java.time.Instant.now;
 import static java.time.ZoneId.systemDefault;
 import static java.util.UUID.fromString;
 import static java.util.UUID.randomUUID;
@@ -56,13 +56,14 @@ class ActivityMapperTest {
                                 .name("Health Kit")
                                 .build()
                 )
+                .createdAt(LocalDateTime.now())
                 .build();
 
         // when
         ActivityEntity entity = mapper.mapToEntity(domain);
 
         // then
-        assertThat(entity.getId()).isNull();
+        assertThat(entity.getId()).isEqualTo(domain.id());
         assertThat(entity.getType()).isEqualTo(domain.type());
         assertThat(entity.getUserId()).isEqualTo(fromString(domain.userId()));
         assertThat(entity.getSteps()).isEqualTo(domain.steps());
@@ -88,14 +89,14 @@ class ActivityMapperTest {
                 .steps(new BigDecimal("10"))
                 .calories(new BigDecimal("3.123123"))
                 .distance(new BigDecimal("1.98634"))
-                .fromAt(now())
-                .toAt(now())
+                .fromAt(Instant.now())
+                .toAt(Instant.now())
                 .productName("iPhone")
                 .productVendor("Apple inc.")
                 .sourceType("")
                 .sourceMode("10")
                 .sourceName("Health Kit")
-                .createdAt(now())
+                .createdAt(Instant.now())
                 .build();
 
         // when

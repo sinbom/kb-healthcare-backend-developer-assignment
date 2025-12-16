@@ -1,11 +1,11 @@
-package com.kb.healthcare.user.adapter.in.web.request;
+package com.kb.healthcare.user.adapter.in.web;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public record SignUpUserRequest(
+record SignUpUserRequest(
         @Size(
                 max = 5,
                 message = "이름은 {max}자 이내로 입력해주세요."

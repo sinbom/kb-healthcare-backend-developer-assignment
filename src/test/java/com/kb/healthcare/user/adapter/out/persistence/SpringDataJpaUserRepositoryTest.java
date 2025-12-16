@@ -15,19 +15,6 @@ class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
     @Autowired
     private SpringDataJpaUserRepository repository;
 
-    private UserEntity create(
-            String name,
-            String nickname,
-            String email
-    ) {
-        return UserEntity.builder()
-                .name(name)
-                .nickname(nickname)
-                .email(email)
-                .password("secret")
-                .build();
-    }
-
     @Test
     @DisplayName(value = "ID로 유저를 조회한다.")
     void findById() {
@@ -135,6 +122,19 @@ class SpringDataJpaUserRepositoryTest extends AbstractDataJpaTestContext {
 
         // then
         assertThat(notFound).isEmpty();
+    }
+
+    private UserEntity create(
+            String name,
+            String nickname,
+            String email
+    ) {
+        return UserEntity.builder()
+                .name(name)
+                .nickname(nickname)
+                .email(email)
+                .password("secret")
+                .build();
     }
 
 }

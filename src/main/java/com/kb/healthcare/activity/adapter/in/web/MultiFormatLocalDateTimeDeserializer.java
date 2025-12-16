@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static java.time.ZoneId.systemDefault;
@@ -51,7 +51,7 @@ class MultiFormatLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTim
 
         try {
             return LocalDateTime.ofInstant(
-                    OffsetDateTime.parse(
+                    ZonedDateTime.parse(
                                     value,
                                     TIME_OFFSET_FORMAT
                             )
@@ -63,7 +63,7 @@ class MultiFormatLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTim
 
         try {
             return LocalDateTime.ofInstant(
-                    OffsetDateTime.parse(
+                    ZonedDateTime.parse(
                                     value,
                                     SPACE_OFFSET_FORMAT
                             )

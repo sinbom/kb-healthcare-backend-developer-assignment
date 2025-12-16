@@ -1,10 +1,10 @@
-package com.kb.healthcare.user.adapter.in.web.request;
+package com.kb.healthcare.user.adapter.in.web;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record LoginUserRequest(
+record LoginUserRequest(
         @Size(
                 max = 320,
                 message = "이메일을 {max}자 이내로 입력해주세요."

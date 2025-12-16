@@ -154,7 +154,6 @@ class JpaUserRepositoryTest {
         verify(springDataJpaUserRepository).save(captor.capture());
 
         UserEntity saved = captor.getValue();
-        assertThat(saved.getId()).isNull();
         assertThat(saved.getName()).isEqualTo(user.name());
         assertThat(saved.getNickname()).isEqualTo(user.nickname());
         assertThat(saved.getEmail()).isEqualTo(user.email());

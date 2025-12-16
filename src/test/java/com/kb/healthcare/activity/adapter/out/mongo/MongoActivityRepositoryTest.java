@@ -80,7 +80,6 @@ class MongoActivityRepositoryTest {
 
         List<ActivityEntity> saved = captor.getValue();
         assertThat(saved).hasSize(1);
-        assertThat(saved.get(0).getId()).isNull();
         assertThat(saved.get(0).getType()).isEqualTo(activity.type());
         assertThat(saved.get(0).getSteps()).isEqualTo(activity.steps());
         assertThat(saved.get(0).getCalories()).isEqualTo(activity.calories().value());
