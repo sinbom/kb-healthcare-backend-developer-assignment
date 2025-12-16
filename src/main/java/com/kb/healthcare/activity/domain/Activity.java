@@ -3,17 +3,26 @@ package com.kb.healthcare.activity.domain;
 import lombok.Builder;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Builder
 public record Activity(
-        Long id,
+        String id,
 
-        Integer steps,
+        ActivityType type,
 
-        BigDecimal calories,
+        String userId,
 
-        BigDecimal distance,
+        Period period,
 
-        String userId
+        Calorie calories,
+
+        Distance distance,
+
+        BigDecimal steps,
+
+        Source source,
+
+        LocalDateTime createdAt
 ) {
 }

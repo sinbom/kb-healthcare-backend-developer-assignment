@@ -2,3 +2,37 @@ services:
   application:
     container_name: application
     platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env.production
+    depends_on:
+      mysql:
+        condition: service_healthy
+  mysql:
+    image: mysql:8.4.7
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env.production
+    volumes:
+      - ~/Docker/mysql-8.4.7/data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+      interval: 2s
+  mongo:
+    image: mongo:8.2.2
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    env_file:
+      - .env.production
+    volumes:
+      - ~/Docker/mongo-8.2.2/data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
