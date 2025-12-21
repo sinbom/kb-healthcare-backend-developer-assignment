@@ -1,10 +1,8 @@
-server:
-  shutdown: immediate
-
 spring:
   datasource:
     url: jdbc:h2:mem:testdb;MODE=MYSQL
     username: sa
+    password:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
@@ -12,16 +10,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        show_sql: false
         default_batch_fetch_size: 1000
-    open-in-view: false
-
-logging:
-  level:
-    org:
-      springframework:
-        security: DEBUG
-      hibernate:
-        SQL: DEBUG
-        orm:
-          jdbc:
-            bind: TRACE
+      open-in-view: false
