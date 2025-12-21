@@ -2,8 +2,8 @@ package com.kb.healthcare.user.adapter.in.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kb.healthcare.configuration.AbstractWebMvcTestContext;
+import com.kb.healthcare.user.application.port.in.SignUpUserUseCase;
 import com.kb.healthcare.user.application.port.in.command.SignUpUserCommand;
-import com.kb.healthcare.user.application.service.SignUpUserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,7 +31,7 @@ class SignUpUserControllerTest extends AbstractWebMvcTestContext {
     private ObjectMapper objectMapper;
 
     @MockitoBean
-    private SignUpUserService signUpUserService;
+    private SignUpUserUseCase signUpUserUseCase;
 
     @Test
     @DisplayName(value = "회원가입한다")
@@ -53,7 +53,7 @@ class SignUpUserControllerTest extends AbstractWebMvcTestContext {
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        verify(signUpUserService).signUp(any(SignUpUserCommand.class));
+        verify(signUpUserUseCase).signUp(any(SignUpUserCommand.class));
     }
 
     @ParameterizedTest

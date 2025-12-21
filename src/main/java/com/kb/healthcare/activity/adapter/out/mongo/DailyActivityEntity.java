@@ -1,6 +1,7 @@
 package com.kb.healthcare.activity.adapter.out.mongo;
 
 import com.kb.healthcare.activity.domain.ActivityType;
+import com.querydsl.core.annotations.QueryEntity;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -15,13 +16,14 @@ import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 import static org.springframework.data.mongodb.core.mapping.FieldType.DECIMAL128;
 
-@Document(collection = "activity")
+@QueryEntity
+@Document(collection = "daily_activity")
 @EqualsAndHashCode(of = "id")
 @Getter
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PRIVATE)
-public class ActivityEntity {
+public class DailyActivityEntity {
 
     @Id
     private String id;
@@ -39,19 +41,7 @@ public class ActivityEntity {
     @Field(targetType = DECIMAL128)
     private BigDecimal distance;
 
-    private Instant fromAt;
-
-    private Instant toAt;
-
-    private String productName;
-
-    private String productVendor;
-
-    private String sourceType;
-
-    private String sourceMode;
-
-    private String sourceName;
+    private String date;
 
     @CreatedDate
     private Instant createdAt;

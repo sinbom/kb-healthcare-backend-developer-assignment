@@ -6,7 +6,7 @@ import com.kb.healthcare.activity.adapter.in.web.SaveActivitiesRequest.Activitie
 import com.kb.healthcare.activity.adapter.in.web.SaveActivitiesRequest.Activities.Distance;
 import com.kb.healthcare.activity.adapter.in.web.SaveActivitiesRequest.Activities.Period;
 import com.kb.healthcare.activity.adapter.in.web.SaveActivitiesRequest.Source.Product;
-import com.kb.healthcare.activity.application.service.SaveActivityService;
+import com.kb.healthcare.activity.application.port.in.SaveActivityUseCase;
 import com.kb.healthcare.configuration.AbstractWebMvcTestContext;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,8 +31,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = ActivityController.class)
-class ActivityControllerTest extends AbstractWebMvcTestContext {
+@WebMvcTest(controllers = SaveActivityController.class)
+class SaveActivityControllerTest extends AbstractWebMvcTestContext {
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,7 +41,7 @@ class ActivityControllerTest extends AbstractWebMvcTestContext {
     private ObjectMapper objectMapper;
 
     @MockitoBean
-    private SaveActivityService saveActivityService;
+    private SaveActivityUseCase saveActivityUseCase;
 
     @Test
     @WithMockUser
@@ -59,7 +59,7 @@ class ActivityControllerTest extends AbstractWebMvcTestContext {
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        verify(saveActivityService).save(anyList());
+        verify(saveActivityUseCase).save(anyList());
     }
 
     @Test

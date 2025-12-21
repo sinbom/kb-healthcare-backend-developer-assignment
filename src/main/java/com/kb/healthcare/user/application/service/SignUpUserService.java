@@ -1,7 +1,7 @@
 package com.kb.healthcare.user.application.service;
 
-import com.kb.healthcare.user.application.port.in.command.SignUpUserCommand;
 import com.kb.healthcare.user.application.port.in.SignUpUserUseCase;
+import com.kb.healthcare.user.application.port.in.command.SignUpUserCommand;
 import com.kb.healthcare.user.application.port.out.CreateUserPort;
 import com.kb.healthcare.user.application.port.out.FindUserPort;
 import com.kb.healthcare.user.domain.User;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class SignUpUserService implements SignUpUserUseCase {
+class SignUpUserService implements SignUpUserUseCase {
 
     private final CreateUserPort createUserPort;
 

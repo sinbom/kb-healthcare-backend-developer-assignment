@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class LoginUserService implements LoginUserUseCase {
+class LoginUserService implements LoginUserUseCase {
 
     private final FindUserPort findUserPort;
 
