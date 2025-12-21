@@ -1,7 +1,7 @@
 package com.kb.healthcare.user.adapter.in.web;
 
+import com.kb.healthcare.user.application.port.in.SignUpUserUseCase;
 import com.kb.healthcare.user.application.port.in.command.SignUpUserCommand;
-import com.kb.healthcare.user.application.service.SignUpUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import static org.springframework.http.ResponseEntity.noContent;
 @RequiredArgsConstructor
 class SignUpUserController {
 
-    private final SignUpUserService signUpUserService;
+    private final SignUpUserUseCase signUpUserUseCase;
 
     @PostMapping(
             path = "/api/v1/users",
@@ -31,7 +31,7 @@ class SignUpUserController {
                 .password(request.password())
                 .build();
 
-        signUpUserService.signUp(command);
+        signUpUserUseCase.signUp(command);
 
         return noContent()
                 .build();

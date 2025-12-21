@@ -1,8 +1,8 @@
-package com.kb.healthcare.application.service;
+package com.kb.healthcare.activity.application.service;
 
 import com.kb.healthcare.activity.application.port.in.command.SaveActivityCommand;
 import com.kb.healthcare.activity.application.port.out.CreateActivityPort;
-import com.kb.healthcare.activity.application.service.SaveActivityService;
+import com.kb.healthcare.activity.application.port.out.PublishActivityCreateEventPort;
 import com.kb.healthcare.activity.domain.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,16 +21,20 @@ import static com.kb.healthcare.activity.domain.DistanceUnit.KM;
 import static java.time.LocalDateTime.now;
 import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(value = MockitoExtension.class)
 class SaveActivityServiceTest {
 
     @InjectMocks
-    private SaveActivityService saveActivityService;
+    private SaveActivityService saveActivityUseCase;
 
     @Mock
     private CreateActivityPort createActivityPort;
+
+    @Mock
+    private PublishActivityCreateEventPort publishActivityCreateEventPort;
 
     @Test
     @DisplayName(value = "활동을 저장한다.")
@@ -71,11 +75,12 @@ class SaveActivityServiceTest {
                 .build();
 
         // when
-        saveActivityService.save(List.of(command));
+        saveActivityUseCase.save(List.of(command));
 
         // then
         ArgumentCaptor<List<Activity>> captor = ArgumentCaptor.forClass((Class) List.class);
         verify(createActivityPort).create(captor.capture());
+        verify(publishActivityCreateEventPort).publish(any(CreateActivityEvent.class));
 
         List<Activity> activities = captor.getValue();
         assertThat(activities).hasSize(1);
