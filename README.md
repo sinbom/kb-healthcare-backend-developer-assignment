@@ -5,9 +5,9 @@
 # 빌드
 ./gradlew clean build
 
-# 실행
+# 컨테이너 실행
 docker compose up --build -d
 
-# arm64(ex. apple silicon) 환경에서 실행 
+# 컨테이너 실행 (arm64[ex. apple silicon] 환경) 
 docker compose -f docker-compose-amd64.yml up -d --build
 ```

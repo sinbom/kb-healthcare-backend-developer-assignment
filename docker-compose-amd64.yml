@@ -12,6 +12,8 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+      mongo:
+        condition: service_healthy
   mysql:
     image: mysql:8.4.7
     container_name: mysql
@@ -36,3 +38,9 @@ services:
     volumes:
       - ~/Docker/mongo-8.2.2/data:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
+      timeout: 5s
+      retries: 5
+      interval: 2s
+      start_period: 5s
