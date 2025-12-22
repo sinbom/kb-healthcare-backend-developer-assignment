@@ -15,7 +15,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequiredArgsConstructor
-class LoginUserController {
+class LoginUserController extends LoginUserControllerDocumentation {
 
     private final LoginUserUseCase loginUserUseCase;
 

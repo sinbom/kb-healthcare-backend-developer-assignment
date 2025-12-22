@@ -14,7 +14,7 @@ import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
 @RequiredArgsConstructor
-class SignUpUserController {
+class SignUpUserController extends SignUpUserControllerDocumentation {
 
     private final SignUpUserUseCase signUpUserUseCase;
 

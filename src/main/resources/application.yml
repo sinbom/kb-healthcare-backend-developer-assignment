@@ -20,3 +20,8 @@ logging:
         orm:
           jdbc:
             bind: TRACE
+
+springdoc:
+  use-fqn: true
+  swagger-ui:
+    default-models-expand-depth: -1

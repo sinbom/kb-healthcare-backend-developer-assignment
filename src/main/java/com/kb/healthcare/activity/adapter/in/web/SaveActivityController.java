@@ -20,7 +20,7 @@ import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
 @RequiredArgsConstructor
-class SaveActivityController {
+class SaveActivityController extends SaveActivityControllerDocumentation {
 
     private final SaveActivityUseCase saveActivityUseCase;
 

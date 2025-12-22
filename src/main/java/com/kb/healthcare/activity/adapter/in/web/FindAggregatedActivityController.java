@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.kb.healthcare.util.LocalDateUtil.formatDefaultPattern;
+import static com.kb.healthcare.util.LocalDateUtil.formatYearMonthPattern;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequiredArgsConstructor
-class FindAggregatedActivityController {
+class FindAggregatedActivityController extends FindAggregatedActivityControllerDocumentation {
 
     private final FindAggregatedActivityUseCase findAggregatedActivityUseCase;
 
@@ -54,7 +56,7 @@ class FindAggregatedActivityController {
                                 .id(dailyActivity.id())
                                 .type(dailyActivity.type())
                                 .recordKey(dailyActivity.userId())
-                                .calorie(
+                                .calories(
                                         Calorie.builder()
                                                 .unit(dailyActivity.calories().unit())
                                                 .value(dailyActivity.calories().value())
@@ -67,7 +69,7 @@ class FindAggregatedActivityController {
                                                 .build()
                                 )
                                 .steps(dailyActivity.steps())
-                                .date(dailyActivity.date())
+                                .date(formatDefaultPattern(dailyActivity.date()))
                                 .build()
                 )
                 .toList();
@@ -108,7 +110,7 @@ class FindAggregatedActivityController {
                                 .id(monthlyActivity.id())
                                 .type(monthlyActivity.type())
                                 .recordKey(monthlyActivity.userId())
-                                .calorie(
+                                .calories(
                                         Calorie.builder()
                                                 .unit(monthlyActivity.calories().unit())
                                                 .value(monthlyActivity.calories().value())
@@ -121,7 +123,7 @@ class FindAggregatedActivityController {
                                                 .build()
                                 )
                                 .steps(monthlyActivity.steps())
-                                .date(monthlyActivity.date())
+                                .date(formatYearMonthPattern(monthlyActivity.date()))
                                 .build()
                 )
                 .toList();
