@@ -22,7 +22,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequiredArgsConstructor
-class FindAggregatedActivityController {
+class FindAggregatedActivityController extends FindAggregatedActivityControllerDocumentation {
 
     private final FindAggregatedActivityUseCase findAggregatedActivityUseCase;
 

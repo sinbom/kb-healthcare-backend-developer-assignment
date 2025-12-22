@@ -38,7 +38,12 @@ class SecurityConfiguration {
                                         "/api/v1/users/login"
                                 )
                                 .permitAll()
-                                .requestMatchers("/error")
+                                .requestMatchers(
+                                        "/error",
+                                        "/swagger.html",
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**"
+                                )
                                 .permitAll()
                                 .requestMatchers(toStaticResources().atCommonLocations())
                                 .permitAll()

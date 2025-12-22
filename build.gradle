@@ -48,6 +48,7 @@ dependencies {
         exclude group: "org.mongodb", module: "mongo-java-driver"
     }
     implementation "io.jsonwebtoken:jjwt-api:$jwtVersion"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openapiVersion}"
 
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly "io.jsonwebtoken:jjwt-impl:$jwtVersion"
