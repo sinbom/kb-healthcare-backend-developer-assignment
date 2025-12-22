@@ -9,8 +9,6 @@ import com.kb.healthcare.activity.domain.Source;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,10 +29,7 @@ class SaveActivityController {
             consumes = APPLICATION_JSON_VALUE,
             produces = APPLICATION_JSON_VALUE
     )
-    ResponseEntity<Void> save(
-            @RequestBody @Valid SaveActivitiesRequest request,
-            @AuthenticationPrincipal User principal
-    ) {
+    ResponseEntity<Void> save(@RequestBody @Valid SaveActivitiesRequest request) {
         List<SaveActivityCommand> commands = request.data()
                 .entries()
                 .stream()

@@ -30,41 +30,24 @@ class UserEntity {
     @GeneratedValue(strategy = UUID)
     private UUID id;
 
-    @Column(
-            length = 64,
-            nullable = false
-    )
+    @Column
     private String name;
 
-    @Column(
-            length = 64,
-            unique = true,
-            nullable = false
-    )
+    @Column
     private String nickname;
 
-    @Column(
-            length = 320,
-            unique = true,
-            nullable = false
-    )
+    @Column
     private String email;
 
-    @Column(
-            length = 255,
-            nullable = false
-    )
+    @Column
     private String password;
 
     @CreatedDate
-    @Column(
-            updatable = false,
-            nullable = false
-    )
+    @Column
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column
     private LocalDateTime updatedAt;
 
 }

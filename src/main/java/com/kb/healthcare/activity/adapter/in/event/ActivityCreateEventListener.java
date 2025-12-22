@@ -24,7 +24,7 @@ class ActivityCreateEventListener {
 
     @Async(value = "activityDomainEventExecutor")
     @EventListener
-    public void createDailyActivity(CreateActivityEvent event) {
+    void createDailyActivity(CreateActivityEvent event) {
         if (isEmpty(event.activities())) {
             return;
         }
@@ -91,7 +91,7 @@ class ActivityCreateEventListener {
 
     @Async(value = "activityDomainEventExecutor")
     @EventListener
-    public void createMonthlyActivity(CreateActivityEvent event) {
+    void createMonthlyActivity(CreateActivityEvent event) {
         if (isEmpty(event.activities())) {
             return;
         }

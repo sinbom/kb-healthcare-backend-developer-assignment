@@ -25,6 +25,10 @@ spring:
     open-in-view: false
     defer-datasource-initialization: true
 
+jwt:
+  private-key: ${PRIVATE_KEY}
+  public-key: ${PUBLIC_KEY}
+
 logging:
   level:
     org:
