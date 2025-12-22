@@ -8,11 +8,10 @@ import com.kb.healthcare.activity.application.port.in.FindAggregatedActivityUseC
 import com.kb.healthcare.activity.application.port.in.command.FindAggregatedActivityCommand;
 import com.kb.healthcare.activity.domain.DailyActivity;
 import com.kb.healthcare.activity.domain.MonthlyActivity;
-import com.kb.healthcare.user.domain.User;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,27 +30,24 @@ class FindAggregatedActivityController {
             path = "/api/v1/activities/daily",
             produces = APPLICATION_JSON_VALUE
     )
-    ResponseEntity<FindAggregatedActivityResponse> findDaily(
-            @AuthenticationPrincipal User principal,
-            FindAggregatedActivityRequest request
-    ) {
+    ResponseEntity<FindAggregatedActivityResponse> findDaily(@Valid FindAggregatedActivityRequest request) {
         FindAggregatedActivityCommand command = FindAggregatedActivityCommand.builder()
-                .page(request.page() != null ? request.page() : 0)
-                .limit(request.limit() != null ? request.limit() : 100)
+                .page(request.page())
+                .limit(request.limit())
                 .userId(request.userId())
                 .startDate(request.startDate())
                 .endDate(request.endDate())
                 .build();
 
-        Page<DailyActivity> page = findAggregatedActivityUseCase.findDaily(command);
+        Page<DailyActivity> dailyActivities = findAggregatedActivityUseCase.findDaily(command);
 
         Metadata metadata = Metadata.builder()
                 .page(command.page())
                 .limit(command.limit())
-                .totalCount(page.getTotalElements())
+                .totalCount(dailyActivities.getTotalElements())
                 .build();
 
-        List<AggregatedActivity> responses = page.getContent()
+        List<AggregatedActivity> responses = dailyActivities.getContent()
                 .stream()
                 .map(dailyActivity ->
                         AggregatedActivity.builder()
@@ -88,27 +84,24 @@ class FindAggregatedActivityController {
             path = "/api/v1/activities/monthly",
             produces = APPLICATION_JSON_VALUE
     )
-    ResponseEntity<FindAggregatedActivityResponse> findMonthly(
-            @AuthenticationPrincipal User principal,
-            FindAggregatedActivityRequest request
-    ) {
+    ResponseEntity<FindAggregatedActivityResponse> findMonthly(@Valid FindAggregatedActivityRequest request) {
         FindAggregatedActivityCommand command = FindAggregatedActivityCommand.builder()
-                .page(request.page() != null ? request.page() : 0)
-                .limit(request.limit() != null ? request.limit() : 100)
+                .page(request.page())
+                .limit(request.limit())
                 .userId(request.userId())
                 .startDate(request.startDate())
                 .endDate(request.endDate())
                 .build();
 
-        Page<MonthlyActivity> page = findAggregatedActivityUseCase.findMonthly(command);
+        Page<MonthlyActivity> monthlyActivities = findAggregatedActivityUseCase.findMonthly(command);
 
         Metadata metadata = Metadata.builder()
                 .page(command.page())
                 .limit(command.limit())
-                .totalCount(page.getTotalElements())
+                .totalCount(monthlyActivities.getTotalElements())
                 .build();
 
-        List<AggregatedActivity> responses = page.getContent()
+        List<AggregatedActivity> responses = monthlyActivities.getContent()
                 .stream()
                 .map(monthlyActivity ->
                         AggregatedActivity.builder()

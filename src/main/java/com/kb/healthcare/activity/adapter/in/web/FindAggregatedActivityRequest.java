@@ -17,7 +17,16 @@ record FindAggregatedActivityRequest(
         LocalDate startDate,
 
         LocalDate endDate
-
 ) {
+
+    FindAggregatedActivityRequest {
+        if (page == null) {
+            page = 0;
+        }
+
+        if (limit == null) {
+            limit = 100;
+        }
+    }
 
 }

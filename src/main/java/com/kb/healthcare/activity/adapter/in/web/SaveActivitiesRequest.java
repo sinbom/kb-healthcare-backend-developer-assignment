@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ record SaveActivitiesRequest(
         String userId,
 
         @NotNull(message = "데이터가 없어요.")
-        Activities data,
+        @Valid Activities data,
 
         @NotNull(message = "최종 업데이트 날짜가 없어요.")
         @JsonDeserialize(using = MultiFormatLocalDateTimeDeserializer.class)
@@ -33,6 +34,10 @@ record SaveActivitiesRequest(
     record Activities(
             String memo,
 
+            @Size(
+                    max = 1500,
+                    message = "활동 데이터가 너무 많아요."
+            )
             @NotEmpty(message = "데이터가 없어요.")
             List<@Valid Activity> entries,
 
@@ -42,13 +47,13 @@ record SaveActivitiesRequest(
 
         record Activity(
                 @NotNull(message = "활동 기간 정보가 없어요.")
-                Period period,
+                @Valid Period period,
 
                 @NotNull(message = "이동거리 정보가 없어요.")
-                Distance distance,
+                @Valid Distance distance,
 
                 @NotNull(message = "소모 칼로리 정보가 없어요.")
-                Calorie calories,
+                @Valid Calorie calories,
 
                 @NotNull(message = "활동 걸음 수가 없어요.")
                 BigDecimal steps

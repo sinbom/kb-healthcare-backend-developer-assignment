@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Builder
 public record Period(
         LocalDateTime from,
+
         LocalDateTime to
 ) {
 }
